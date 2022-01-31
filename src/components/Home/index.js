@@ -1,9 +1,9 @@
 import React from "react";
 
-export default function userList() {
+export default function index() {
   return (
     <div>
-      <h1>Users List</h1>
+      <h1>Home</h1>
     </div>
   );
 }
