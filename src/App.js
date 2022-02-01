@@ -4,6 +4,7 @@ import Home from "./components/Home";
 import User from "./components/users";
 import Blog from "./components/blogs/blogList";
 import NavBar from "./components/NavBar";
+import './index.css';
 
 function App() {
   return (

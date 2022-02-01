@@ -4,10 +4,10 @@ import { Link } from "react-router-dom";
 export default function NavBar() {
   return (
     <>
-      <nav className="navbar navbar-expand-sm bg-primary navbar-dark">
+      <nav className="navbar navbar-expand-sm bg-dark navbar-dark">
         <div className="container">
           <Link class="navbar-brand" to='/'>
-            REACTJS CRUD
+            ReactJS CRUD
           </Link>
           <ul className="navbar-nav">
             <li className="navbar-item">
