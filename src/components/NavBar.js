@@ -6,7 +6,7 @@ export default function NavBar() {
     <>
       <nav className="navbar navbar-expand-sm bg-dark navbar-dark">
         <div className="container">
-          <Link class="navbar-brand" to='/'>
+          <Link className="navbar-brand" to='/'>
             ReactJS CRUD
           </Link>
           <ul className="navbar-nav">

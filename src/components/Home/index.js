@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import ReactLoading from "react-loading";
+import { Link } from 'react-router-dom'
 
 export default function Home() {
   const [items, setItems] = useState([]);
@@ -24,15 +26,28 @@ export default function Home() {
     getData();
   }, []);
 
-  if(loading===true){
+  console.log(error)
+
+  if (loading === true) {
+    return (
+      <div className="mt-5" align="center">
+        <ReactLoading
+          type="spin"
+          color="#6495ED"
+          height={"20%"}
+          width={"20%"}
+        />
+      </div>
+    );
+  }
+
+  if(error){
     return(
-      <div>
-        <p>Loading...</p>
+      <div className="mt-5" align="center">
+        <p>เกิดข้อผิดพลาดจาก Server กรุณาลองใหม่</p>
       </div>
     )
   }
-
-
 
   return (
     <>
@@ -58,6 +73,7 @@ export default function Home() {
               <div className="card-body">
                 <h4 className="card-title">{item.name}</h4>
                 <p className="card-text">{item.detail.substring(0, 100)}</p>
+                <Link to={'/detail/'+item.id} class="btn btn-primary">See Profile</Link>
               </div>
             </div>
           </div>
