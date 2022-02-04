@@ -5,6 +5,8 @@ import User from "./components/users";
 import Blog from "./components/blogs/blogList";
 import NavBar from "./components/NavBar";
 import Detail from './components/Home/Detail'
+import CourseList from './components/course/CourseList'
+import AddCourse from './components/course/AddCourse'
 import './index.css';
 
 function App() {
@@ -17,6 +19,8 @@ function App() {
           <Route path="/detail/:id" element={<Detail/>} />
           <Route path="/users" element={<User />} />
           <Route path="/blogs" element={<Blog />} />
+          <Route path="/course" element={<CourseList/>} />
+          <Route path="/addcourse" element={<AddCourse/>} />
         </Routes>
       </div>
     </Router>
