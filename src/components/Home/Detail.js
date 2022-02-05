@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 export default function Detail() {
   const { id } = useParams();
@@ -9,7 +9,7 @@ export default function Detail() {
   const getData = async () => {
    await fetch("https://www.mecallapi.com/api/attractions/"+id)
       .then((res) => res.json())
-      .then((result) => setDetail(result));
+      .then((result) => setDetail(result.attraction));
    
   };
 
@@ -21,7 +21,7 @@ export default function Detail() {
   return (
     <div>
       <h1>Attactions Detail ID : {id}</h1>
-
+   {detail.name}
     </div>
   );
 }

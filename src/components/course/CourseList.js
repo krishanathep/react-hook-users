@@ -1,9 +1,30 @@
 import React, { useState, useEffect } from "react";
 import Moment from 'react-moment';
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
+import axios from 'axios'
 
 export default function CourseList() {
   const [students, setStudents] = useState([]);
+
+  const deletdStudent =(e, id)=>{
+    e.preventDefault()
+
+    //console.log('ลบข้อมูลเรียบร้อย'+ id)
+
+    axios.delete(`https://www.full-stack-app.com/services/public/api/delete-student/${id}`)
+      .this(res=>{
+        if(res.data.status === 404){
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Your work has been deleted",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      })
+  }
 
   const fetchData = () => {
     //fetch("http://localhost/laravel-react-crud/public/api/students")
@@ -54,7 +75,7 @@ export default function CourseList() {
                   <td align="center">
                     <Link to={'/viewcourse/'+ student.id} className="btn btn-info btn-sm">View</Link>{" "}
                     <Link to={'/editcourse/'+ student.id} className="btn btn-primary btn-sm">Update</Link>{" "}
-                    <button className="btn btn-danger btn-sm">Delete</button>
+                    <button type="button" onClick={(e)=>deletdStudent(e, student.id)} className="btn btn-danger btn-sm">Delete</button>
                   </td>
                 </tr>
               ))}

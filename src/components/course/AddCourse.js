@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 //import { ToastContainer, toast } from "react-toastify";
 //import "react-toastify/dist/ReactToastify.css";
-import axios from "axios";
+//import axios from "axios";
 import Swal from "sweetalert2";
 
 export default function AddCourse() {
@@ -23,18 +23,23 @@ export default function AddCourse() {
       phone: phone,
     };
 
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    };
+
     //console.log(data);
 
-    axios
-      //.post("http://localhost/laravel-react-crud/public/api/add-student", data)
-      .post(
-        "https://www.full-stack-app.com/services/public/api/add-student",
-        data
-      )
+    fetch(
+      "https://www.full-stack-app.com/services/public/api/add-student",
+      requestOptions
+    )
+      .then((res) => res.json())
       .then((res) => {
-        if (res.data.status === 200) {
+        if (res.status === 200) {
           Swal.fire({
-            position: "middle",
+            position: "center",
             icon: "success",
             title: "Your work has been created",
             showConfirmButton: false,
@@ -42,9 +47,8 @@ export default function AddCourse() {
           });
           history("/course");
         } else {
-          //console.log(res.data.status);
           Swal.fire({
-            position: "middle",
+            position: "center",
             icon: "error",
             title: "Something went wrong!",
             showConfirmButton: false,
@@ -57,6 +61,38 @@ export default function AddCourse() {
           setPhone("");
         }
       });
+    //   axios
+    //     //.post("http://localhost/laravel-react-crud/public/api/add-student", data)
+    //     .post(
+    //       "https://www.full-stack-app.com/services/public/api/add-student",
+    //       data
+    //     )
+    //     .then((res) => {
+    //       if (res.data.status === 200) {
+    //         Swal.fire({
+    //           position: "center",
+    //           icon: "success",
+    //           title: "Your work has been created",
+    //           showConfirmButton: false,
+    //           timer: 1500,
+    //         });
+    //         history("/course");
+    //       } else {
+    //         //console.log(res.data.status);
+    //         Swal.fire({
+    //           position: "center",
+    //           icon: "error",
+    //           title: "Something went wrong!",
+    //           showConfirmButton: false,
+    //           timer: 1500,
+    //         });
+
+    //         setName("");
+    //         setCourse("");
+    //         setEmail("");
+    //         setPhone("");
+    //       }
+    //     });
   };
 
   return (
