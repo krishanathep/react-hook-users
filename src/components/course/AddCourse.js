@@ -1,17 +1,14 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-//import { ToastContainer, toast } from "react-toastify";
-//import "react-toastify/dist/ReactToastify.css";
-//import axios from "axios";
 import Swal from "sweetalert2";
 
 export default function AddCourse() {
   const history = useNavigate();
 
-  const [name, setName] = useState("");
-  const [course, setCourse] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
+  const [name, setName] = useState("Test");
+  const [course, setCourse] = useState("Test");
+  const [email, setEmail] = useState("test@email.com");
+  const [phone, setPhone] = useState("1234578910");
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -61,38 +58,6 @@ export default function AddCourse() {
           setPhone("");
         }
       });
-    //   axios
-    //     //.post("http://localhost/laravel-react-crud/public/api/add-student", data)
-    //     .post(
-    //       "https://www.full-stack-app.com/services/public/api/add-student",
-    //       data
-    //     )
-    //     .then((res) => {
-    //       if (res.data.status === 200) {
-    //         Swal.fire({
-    //           position: "center",
-    //           icon: "success",
-    //           title: "Your work has been created",
-    //           showConfirmButton: false,
-    //           timer: 1500,
-    //         });
-    //         history("/course");
-    //       } else {
-    //         //console.log(res.data.status);
-    //         Swal.fire({
-    //           position: "center",
-    //           icon: "error",
-    //           title: "Something went wrong!",
-    //           showConfirmButton: false,
-    //           timer: 1500,
-    //         });
-
-    //         setName("");
-    //         setCourse("");
-    //         setEmail("");
-    //         setPhone("");
-    //       }
-    //     });
   };
 
   return (

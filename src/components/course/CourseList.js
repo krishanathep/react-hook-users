@@ -1,34 +1,36 @@
 import React, { useState, useEffect } from "react";
-import Moment from 'react-moment';
+import Moment from "react-moment";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
-import axios from 'axios'
 
 export default function CourseList() {
   const [students, setStudents] = useState([]);
 
-  const deletdStudent =(e, id)=>{
-    e.preventDefault()
+   async function deletdStudent (e, id) {
+    e.preventDefault();
 
-    //console.log('ลบข้อมูลเรียบร้อย'+ id)
+    await fetch(
+      `https://www.full-stack-app.com/services/public/api/delete-student/${id}`,
+      { method: "DELETE" }
+    )
+      .then((res) => res.json())
+      .then((res)=>console.log(res.student));
 
-    axios.delete(`https://www.full-stack-app.com/services/public/api/delete-student/${id}`)
-      .this(res=>{
-        if(res.data.status === 404){
-          Swal.fire({
-            position: "center",
-            icon: "success",
-            title: "Your work has been deleted",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-        }
-      })
-  }
+  //  Swal.fire({
+  //     position: "center",
+  //     icon: "success",
+  //     title: "Your work has been deleted",
+  //     showConfirmButton: false,
+  //     timer: 2500,
+  //   });
+
+    window.location.reload(0)
+
+  };
 
   const fetchData = () => {
     //fetch("http://localhost/laravel-react-crud/public/api/students")
-    fetch('https://www.full-stack-app.com/services/public/api/students')
+    fetch("https://www.full-stack-app.com/services/public/api/students")
       .then((res) => res.json())
       .then((res) => setStudents(res.students));
     console.log(students);
@@ -53,7 +55,7 @@ export default function CourseList() {
         <div className="col-md-12">
           <table className="table table-bordered table-hover">
             <thead>
-              <tr align='center'>
+              <tr align="center">
                 <th>ID</th>
                 <th>Name</th>
                 <th>Course</th>
@@ -71,11 +73,29 @@ export default function CourseList() {
                   <td>{student.course}</td>
                   <td>{student.email}</td>
                   <td>{student.phone}</td>
-                  <td><Moment format="DD/MM/YYYY">{student.created_at}</Moment></td>
+                  <td>
+                    <Moment format="DD/MM/YYYY">{student.created_at}</Moment>
+                  </td>
                   <td align="center">
-                    <Link to={'/viewcourse/'+ student.id} className="btn btn-info btn-sm">View</Link>{" "}
-                    <Link to={'/editcourse/'+ student.id} className="btn btn-primary btn-sm">Update</Link>{" "}
-                    <button type="button" onClick={(e)=>deletdStudent(e, student.id)} className="btn btn-danger btn-sm">Delete</button>
+                    <Link
+                      to={"/viewcourse/" + student.id}
+                      className="btn btn-info btn-sm"
+                    >
+                      View
+                    </Link>{" "}
+                    <Link
+                      to={"/editcourse/" + student.id}
+                      className="btn btn-primary btn-sm"
+                    >
+                      Update
+                    </Link>{" "}
+                    <button
+                      type="button"
+                      onClick={(e) => deletdStudent(e, student.id)}
+                      className="btn btn-danger btn-sm"
+                    >
+                      Delete
+                    </button>
                   </td>
                 </tr>
               ))}
