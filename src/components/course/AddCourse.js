@@ -5,10 +5,10 @@ import Swal from "sweetalert2";
 export default function AddCourse() {
   const history = useNavigate();
 
-  const [name, setName] = useState("Test");
-  const [course, setCourse] = useState("Test");
-  const [email, setEmail] = useState("test@email.com");
-  const [phone, setPhone] = useState("1234578910");
+  const [name, setName] = useState("");
+  const [course, setCourse] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -38,7 +38,8 @@ export default function AddCourse() {
           Swal.fire({
             position: "center",
             icon: "success",
-            title: "Your work has been created",
+            title: 'Success',
+            text: "Your work has been created",
             showConfirmButton: false,
             timer: 1500,
           });
@@ -47,7 +48,8 @@ export default function AddCourse() {
           Swal.fire({
             position: "center",
             icon: "error",
-            title: "Something went wrong!",
+            title: "Error",
+            text: "Something went wrong!",
             showConfirmButton: false,
             timer: 1500,
           });
