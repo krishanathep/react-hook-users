@@ -7,10 +7,10 @@ export default function CourseList() {
   const [students, setStudents] = useState([]);
   const [error, setError] = useState(null);
 
-  function deletdStudent(e, id) {
+  async function deletdStudent(e, id) {
     e.preventDefault();
     try {
-      Swal.fire({
+     await Swal.fire({
         title: "Are you sure?",
         text: "You won't be able to revert this!",
         icon: "warning",
@@ -32,7 +32,7 @@ export default function CourseList() {
               text : 'Your file has been deleted.',
               icon: 'success',
               showConfirmButton: false,
-              timer: 1500
+              //timer: 1500
             })
           setTimeout(function () {
             window.location.reload();
