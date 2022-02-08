@@ -2,15 +2,40 @@ import React, { useState, useEffect } from "react";
 import Moment from "react-moment";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import ReactLoading from "react-loading";
+import {
+  BsFillEyeFill,
+  BsPencilSquare,
+  BsTrash,
+  BsFillPlusCircleFill,
+} from "react-icons/bs";
 
 export default function CourseList() {
   const [students, setStudents] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+
+  async function fetchData() {
+    try {
+      setLoading(true);
+      await fetch("https://www.full-stack-app.com/services/public/api/students")
+        .then((res) => res.json())
+        .then((res) => setStudents(res.students));
+    } catch (error) {
+      setError(error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   async function deletdStudent(e, id) {
     e.preventDefault();
     try {
-     await Swal.fire({
+      await Swal.fire({
         title: "Are you sure?",
         text: "You won't be able to revert this!",
         icon: "warning",
@@ -27,18 +52,17 @@ export default function CourseList() {
             .then((res) => res.json())
             .then((res) => console.log(res.student));
 
-            Swal.fire({
-              title: 'Deleted!',
-              text : 'Your file has been deleted.',
-              icon: 'success',
-              showConfirmButton: false,
-              //timer: 1500
-            })
+          Swal.fire({
+            title: "Deleted!",
+            text: "Your file has been deleted.",
+            icon: "success",
+            showConfirmButton: false,
+          });
           setTimeout(function () {
             window.location.reload();
           }, 1500);
         } else {
-          console.log(error)
+          console.log(error);
         }
       });
     } catch (error) {
@@ -46,17 +70,26 @@ export default function CourseList() {
     }
   }
 
-  const fetchData = () => {
-    //fetch("http://localhost/laravel-react-crud/public/api/students")
-    fetch("https://www.full-stack-app.com/services/public/api/students")
-      .then((res) => res.json())
-      .then((res) => setStudents(res.students));
-    console.log(students);
-  };
+  if (loading === true) {
+    return (
+      <div className="mt-5" align="center">
+        <ReactLoading
+          type="spin"
+          color="#6495ED"
+          height={"20%"}
+          width={"20%"}
+        />
+      </div>
+    );
+  }
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  if (error) {
+    return (
+      <div className="mt-5" align="center">
+        <p>เกิดข้อผิดพลาดจาก Server กรุณาลองใหม่</p>
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -67,7 +100,7 @@ export default function CourseList() {
             to="/addcourse"
             className="btn btn-success btn-sm float-end mt-3"
           >
-            New Students
+            <BsFillPlusCircleFill /> New Students
           </Link>
         </div>
         <div className="col-md-12">
@@ -97,22 +130,22 @@ export default function CourseList() {
                   <td align="center">
                     <Link
                       to={"/viewcourse/" + student.id}
-                      className="btn btn-info btn-sm"
+                      className="btn btn-info text-light btn-sm"
                     >
-                      View
+                      <BsFillEyeFill />
                     </Link>{" "}
                     <Link
                       to={"/editcourse/" + student.id}
                       className="btn btn-primary btn-sm"
                     >
-                      Update
+                      <BsPencilSquare />
                     </Link>{" "}
                     <button
                       type="button"
                       onClick={(e) => deletdStudent(e, student.id)}
                       className="btn btn-danger btn-sm"
                     >
-                      Delete
+                      <BsTrash />
                     </button>
                   </td>
                 </tr>
