@@ -5,7 +5,7 @@ export default function UserList() {
   const [users, setUsers] = useState([]);
 
   const userFetch = () => {
-    fetch("https://www.mecallapi.com/api/users")
+    fetch("https://www.melivecode.com/api/users")
       .then((res) => res.json())
       .then((result) => {
         setUsers(result);
