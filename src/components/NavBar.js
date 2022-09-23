@@ -15,16 +15,16 @@ export default function NavBar() {
                 Home
               </Link>
             </li>
-            {/* <li className="navbar-item">
+            <li className="navbar-item">
               <Link className="nav-link" to="/users">
                 Users
               </Link>
-            </li> */}
-            <li className="navbar-item">
+            </li>
+            {/* <li className="navbar-item">
               <Link className="nav-link" to="/course">
                 Students
               </Link>
-            </li>
+            </li> */}
           </ul>
         </div>
       </nav>
